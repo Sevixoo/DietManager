@@ -9,80 +9,47 @@ var controller = {
     nextDayButton: null,
     dayController: 0,
     nextDayTable: ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'],
-    planData: {
-        "dietDescription": "dupadupaczycostam",
-        "dietName": "dietName",
-        "link": "link",
-        "menu": {
-            "mondayMenu": {
-                "breakfast": [{'name': 'nazwapon', 'quantity': 14016, 'calories': 156}, {'name': 'nazwa', 'quantity': 14016, 'calories': 156}],
-                "dinner": [{'name': 'kutas', 'quantity': 123, 'calories': 156}],
-                "lunch": [{'name': 'nazwa', 'quantity': 14016, 'calories': 156}],
-                "snack1": [{'name': 'nazwa', 'quantity': 14016, 'calories': 156}],
-                "snack2": [{'name': 'nazwa', 'quantity': 14016, 'calories': 156}]
-            },
+    nextDayIdsTable: ['mondayMenu', 'tuesdayMenu', 'wednesdayMenu', 'thursdayMenu', 'fridayMenu', 'saturdayMenu', 'sundayMenu'],
+    planData: null,
 
-            "tuesdayMenu": {
-                "breakfast": [{'name': 'wtorek', 'quantity': 14016, 'calories': 156}, {'name': 'nazwa', 'quantity': 14016, 'calories': 156}],
-                "dinner": [{'name': 'wtorek', 'quantity': 14016, 'calories': 156}],
-                "lunch": [{'name': 'wtorek', 'quantity': 14016, 'calories': 156}],
-                "snack1": [{'name': 'wtorek', 'quantity': 14016, 'calories': 156}],
-                "snack2": [{'name': 'wtorek', 'quantity': 14016, 'calories': 156}]
-            },
-
-            "wednesdayMenu": {
-                "breakfast": [{'name': 'sroda', 'quantity': 14016, 'calories': 156}, {'name': 'nazwa', 'quantity': 14016, 'calories': 156}],
-                "dinner": [{'name': 'sroda', 'quantity': 14016, 'calories': 156}],
-                "lunch": [{'name': 'sroda', 'quantity': 14016, 'calories': 156}],
-                "snack1": [{'name': 'sroda', 'quantity': 14016, 'calories': 156}],
-                "snack2": [{'name': 'sroda', 'quantity': 14016, 'calories': 156}]
-            },
-
-            "thursdayMenu": {
-                "breakfast": [{'name': 'czwartek', 'quantity': 14016, 'calories': 156}, {'name': 'nazwa', 'quantity': 14016, 'calories': 156}],
-                "dinner": [{'name': 'czwartek', 'quantity': 14016, 'calories': 156}],
-                "lunch": [{'name': 'czwartek', 'quantity': 14016, 'calories': 156}],
-                "snack1": [{'name': 'czwartek', 'quantity': 14016, 'calories': 156}],
-                "snack2": [{'name': 'czwartek', 'quantity': 14016, 'calories': 156}]
-            },
-
-            "fridayMenu": {
-                "breakfast": [{'name': 'piatek', 'quantity': 14016, 'calories': 156}, {'name': 'nazwa', 'quantity': 14016, 'calories': 156}],
-                "dinner": [{'name': 'piatek', 'quantity': 14016, 'calories': 156}],
-                "lunch": [{'name': 'piatek', 'quantity': 14016, 'calories': 156}],
-                "snack1": [{'name': 'piatek', 'quantity': 14016, 'calories': 156}],
-                "snack2": [{'name': 'piatek', 'quantity': 14016, 'calories': 156}]
-            },
-
-            "saturdayMenu": {
-                "breakfast": [{'name': 'sobota', 'quantity': 14016, 'calories': 156}, {'name': 'nazwa', 'quantity': 14016, 'calories': 156}],
-                "dinner": [{'name': 'sobota', 'quantity': 14016, 'calories': 156}],
-                "lunch": [{'name': 'sobota', 'quantity': 14016, 'calories': 156}],
-                "snack1": [{'name': 'sobota', 'quantity': 14016, 'calories': 156}],
-                "snack2": [{'name': 'sobota', 'quantity': 14016, 'calories': 156}]
-            },
-
-            "sundayMenu": {
-                "breakfast": [{'name': 'nazwanied', 'quantity': 14016, 'calories': 156}, {'name': 'nazwa', 'quantity': 14016, 'calories': 156}],
-                "dinner": [{'name': 'nazwanied', 'quantity': 14016, 'calories': 156}],
-                "lunch": [{'name': 'nazwanied', 'quantity': 14016, 'calories': 156}],
-                "snack1": [{'name': 'nazwanied', 'quantity': 14016, 'calories': 156}],
-                "snack2": [{'name': 'nazwanied', 'quantity': 14016, 'calories': 156}]
-            }
-        }
-    },
     onCreate: function () {
+        this.planData = JSON.parse(localStorage.getItem("dietData"));
+    },
+
+    onResult : function(result){
+        if(result){
+            this.planData.menu[result.targetDay][result.targetMeal].push({
+                'name': result.name,
+                'quantity': result.quantity,
+                'calories': result.calories
+            });
+        }
     },
 
     onDeviceReady: function () {
-        var productTable = [{'name': 'nazwa', 'quantity': 14016, 'calories': 156}];
         this.nextDayButton = $("#bottom_button");
         this.addProductBtn = $("#add_selected_product");
-        this.addBreakfast = $("#add_breakfast");
         this.productName = $("#product_name");
         this.calories = $("#calories");
         this.quantity = $("#quantity");
-        this.addBreakfast.click(this.navigateToAddProduct);
+
+
+        $("#add_breakfast").click(function () {
+            controller.navigateToAddProduct(controller.nextDayIdsTable[controller.dayController],"breakfast");
+        });
+        $("#add_dinner").click(function () {
+            controller.navigateToAddProduct(controller.nextDayIdsTable[controller.dayController],"dinner");
+        });
+        $("#add_lunch").click(function () {
+            controller.navigateToAddProduct(controller.nextDayIdsTable[controller.dayController],"lunch");
+        });
+        $("#add_snack1").click(function () {
+            controller.navigateToAddProduct(controller.nextDayIdsTable[controller.dayController],"snack1");
+        });
+        $("#add_snack2").click(function () {
+            controller.navigateToAddProduct(controller.nextDayIdsTable[controller.dayController],"snack2");
+        });
+
         controller.displayDay(controller.planData.menu[Object.keys(controller.planData.menu)[controller.dayController]], controller.nextDayTable[controller.dayController]);
         controller.displayButtonName("NEXT DAY");
         this.displayDayName(this.nextDayTable[this.dayController]);
@@ -127,8 +94,12 @@ var controller = {
         view.html(dayNameTemplate);
     },
 
-    navigateToAddProduct: function (dayNumber) {
-        navigation.navigateToPath("/view/add_product/add_product.html");
+    navigateToAddProduct: function (targetDay, targetMeal) {
+        localStorage.setItem("dietData",JSON.stringify(this.planData));
+        navigation.navigateToPathWithArgument("/view/add_product/add_product.html",{
+            targetDay : targetDay,
+            targetMeal : targetMeal,
+        });
     },
 
     displayProducts: function (view, data) {

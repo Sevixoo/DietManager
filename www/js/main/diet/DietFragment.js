@@ -25,6 +25,68 @@ var dietFragment = {
      },
 
      switchToPlanCreation: function(){
+         localStorage.setItem("dietData",JSON.stringify({
+             "dietDescription": "description",
+             "dietName": "New diet",
+             "link": "link",
+             "menu": {
+                 "mondayMenu": {
+                     "breakfast": [],
+                     "dinner": [],
+                     "lunch": [],
+                     "snack1": [],
+                     "snack2": []
+                 },
+
+                 "tuesdayMenu": {
+                     "breakfast": [],
+                     "dinner": [],
+                     "lunch": [],
+                     "snack1": [],
+                     "snack2": []
+                 },
+
+                 "wednesdayMenu": {
+                     "breakfast": [],
+                     "dinner": [],
+                     "lunch": [],
+                     "snack1": [],
+                     "snack2": []
+                 },
+
+                 "thursdayMenu": {
+                     "breakfast": [],
+                     "dinner": [],
+                     "lunch": [],
+                     "snack1": [],
+                     "snack2": []
+                 },
+
+                 "fridayMenu": {
+                     "breakfast": [],
+                     "dinner": [],
+                     "lunch": [],
+                     "snack1": [],
+                     "snack2": []
+                 },
+
+                 "saturdayMenu": {
+                     "breakfast": [],
+                     "dinner": [],
+                     "lunch": [],
+                     "snack1": [],
+                     "snack2": []
+                 },
+
+                 "sundayMenu": {
+                     "breakfast": [],
+                     "dinner": [],
+                     "lunch": [],
+                     "snack1": [],
+                     "snack2": []
+                 }
+             }
+         }));
          navigation.navigateToPath("/view/create_nutrition_plan/create_nutrition_plan.html");
      }
 };

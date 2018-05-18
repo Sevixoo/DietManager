@@ -6,7 +6,13 @@ var controller = {
     typeProductInput : null,
     productItemsList : null,
 
-    onCreate: function() { },
+    targetDay : null,
+    targetMeal : null,
+
+    onCreate: function(arg) {
+        this.targetDay = arg.targetDay;
+        this.targetMeal = arg.targetMeal;
+    },
 
     onDeviceReady: function() {
         this.productCard = $("#product_card");
@@ -28,7 +34,9 @@ var controller = {
     navigateToProductDetail: function ( ndbno , name ) {
         navigation.navigateToPathWithArgument("/view/product_detail/product_detail.html", {
             ndbno : ndbno,
-            name : name
+            name : name,
+            targetDay : controller.targetDay,
+            targetMeal : controller.targetMeal
         });
     },
 

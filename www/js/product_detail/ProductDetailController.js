@@ -11,9 +11,14 @@ var controller = {
     productItemName : null,
     caloriesValue : null,
 
+    targetDay : null,
+    targetMeal : null,
+
     onCreate: function(arg) {
         this.productId = arg.ndbno;
         this.productItemName = arg.name;
+        this.targetDay = arg.targetDay;
+        this.targetMeal = arg.targetMeal;
     },
 
     onDeviceReady: function() {
@@ -32,6 +37,7 @@ var controller = {
             controller.hideLoader();
             if(data.report){
                 controller.displayProductDetails(data.report.foods[0].name);
+                controller.productItemName = data.report.foods[0].name;
                 controller.caloriesValue = data.report.foods[0].nutrients[0].gm;
                 controller.calories.html(controller.caloriesValue + " cal/100g");
             }
@@ -49,7 +55,9 @@ var controller = {
             ndbno : controller.productId,
             name : controller.productItemName,
             quantity : controller.quantity.val(),
-            calories : controller.caloriesValue
+            calories : controller.caloriesValue,
+            targetDay : controller.targetDay,
+            targetMeal : controller.targetMeal
         });
     },
 
