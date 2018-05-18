@@ -20,6 +20,7 @@
     <allow-navigation href="file://*/*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <plugin spec=" https://github.com/acianti/cordova-plugin-local-notifications.git" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -38,7 +39,6 @@
     <preference name="SplashScreenDelay" value="0" />
     <plugin name="cordova-universal-links-plugin" spec="^1.2.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
-    <plugin spec=" https://github.com/acianti/cordova-plugin-local-notifications.git" />
     <engine name="android" spec="^7.0.0" />
     <engine name="browser" spec="^5.0.3" />
 </widget>
