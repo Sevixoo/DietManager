@@ -9,6 +9,7 @@ var controller = {
     nextDayButton: null,
     dayController: 0,
     nextDayTable: ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'],
+    nextDayTableKeys: ['mondayMenu', 'tuesdayMenu', 'wednesdayMenu', 'thursdayMenu', 'fridayMenu', 'saturdayMenu', 'sundayMenu'],
     planData: {
         "dietDescription": "dietDescription",
         "dietName": "dietName",
@@ -83,16 +84,35 @@ var controller = {
         this.calories = $("#calories");
         this.quantity = $("#quantity");
         this.addBreakfast.click(this.navigateToAddProduct);
-        controller.displayDay(controller.planData.menu[Object.keys(controller.planData.menu)[controller.dayController]], controller.nextDayTable[controller.dayController]);
-        controller.displayButtonName("NEXT DAY");
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            var userID = user.uid;
+            firebase.database().ref('test/' + userID).once('value').then(function (snapshot) {
+                var item = snapshot.val();
+                if (item && item.myDiet) {
+                    controller.planData = item.myDiet;
+                    controller.displayDay(controller.planData.menu[controller.nextDayTableKeys[controller.dayController]], controller.nextDayTable[controller.dayController]);
+                    controller.displayButtonName("NEXT DAY");
+                }else if(item && item.dietIds){
+                    firebase.database().ref('diet_offers/' + item.dietIds ).once('value').then(function (dietSnapshot) {
+                        controller.planData = dietSnapshot.val();
+                        controller.displayDay(controller.planData.menu[controller.nextDayTableKeys[controller.dayController]], controller.nextDayTable[controller.dayController]);
+                        controller.displayButtonName("NEXT DAY");
+                    });
+                }else{
+                    navigation.navigateToPath("/view/main/main.html");
+                }
+            });
+        });
+
         this.displayDayName(this.nextDayTable[this.dayController]);
         this.nextDayButton.click(function () {
             controller.dayController++;
             if (controller.dayController < 6) {
-                controller.displayDay(controller.planData.menu[Object.keys(controller.planData.menu)[controller.dayController]], controller.nextDayTable[controller.dayController]);
+                controller.displayDay(controller.planData.menu[controller.nextDayTableKeys[controller.dayController]], controller.nextDayTable[controller.dayController]);
             }
             else if(controller.dayController == 6){
-                controller.displayDay(controller.planData.menu[Object.keys(controller.planData.menu)[controller.dayController]], controller.nextDayTable[controller.dayController]);
+                controller.displayDay(controller.planData.menu[controller.nextDayTableKeys[controller.dayController]], controller.nextDayTable[controller.dayController]);
                 controller.displayButtonName("BACK TO THE BEGINNING");
             }
             else {

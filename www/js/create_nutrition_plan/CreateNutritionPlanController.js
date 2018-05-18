@@ -63,7 +63,20 @@ var controller = {
                 controller.displayButtonName("CREATE NUTRITION PLAN");
             }
             else {
-                navigation.navigateToPath("/view/main/main.html");
+                controller.normalizePlan(controller.planData.menu[Object.keys(controller.planData.menu)[0]]);
+                controller.normalizePlan(controller.planData.menu[Object.keys(controller.planData.menu)[1]]);
+                controller.normalizePlan(controller.planData.menu[Object.keys(controller.planData.menu)[2]]);
+                controller.normalizePlan(controller.planData.menu[Object.keys(controller.planData.menu)[3]]);
+                controller.normalizePlan(controller.planData.menu[Object.keys(controller.planData.menu)[4]]);
+                controller.normalizePlan(controller.planData.menu[Object.keys(controller.planData.menu)[5]]);
+                controller.normalizePlan(controller.planData.menu[Object.keys(controller.planData.menu)[6]]);
+
+                var userId = firebase.auth().currentUser.uid;
+                firebase.database().ref('test/' + userId).set({
+                    myDiet: controller.planData
+                }).then(function () {
+                    navigation.navigateToPath("/view/main/main.html");
+                });
             }
 
         })
@@ -84,6 +97,46 @@ var controller = {
         this.displayProducts($("#lunch_products"), data.lunch);
         this.displayProducts($("#dinner_products"), data.snack1);
         this.displayProducts($("#supper_products"), data.snack2);
+    },
+
+    normalizePlan: function (data){
+        var array = data.breakfast;
+        var name = "";
+
+        array = data.breakfast;
+        name = "";
+        for (var i = 0; i < array.length; i++) {
+            name += array[i].name + " " + array[i].quantity + ","
+        }
+        data.breakfast = name;
+
+        array = data.dinner;
+        name = "";
+        for (var i = 0; i < array.length; i++) {
+            name += array[i].name + " " + array[i].quantity + ","
+        }
+        data.dinner = name;
+
+        array = data.lunch;
+        name = "";
+        for (var i = 0; i < array.length; i++) {
+            name += array[i].name + " " + array[i].quantity + ","
+        }
+        data.lunch = name;
+
+        array = data.snack1;
+        name = "";
+        for (var i = 0; i < array.length; i++) {
+            name += array[i].name + " " + array[i].quantity + ","
+        }
+        data.snack1 = name;
+
+        array = data.snack2;
+        name = "";
+        for (var i = 0; i < array.length; i++) {
+            name += array[i].name + " " + array[i].quantity + ","
+        }
+        data.snack2 = name;
     },
 
     displayDayName: function (dayName) {

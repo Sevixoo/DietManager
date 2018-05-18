@@ -19,6 +19,8 @@ var dietFragment = {
          this.showMenuBtn = $("#show_plan");
          this.removeBtn = $("#removeButton");
 
+         document.getElementById('show_plan').style.display = "none";
+
          this.removeBtn.click(this.removeDietID.bind(this));
 
          this.chooseExistingBtn.click(this.switchTab);
@@ -44,14 +46,23 @@ var dietFragment = {
          firebase.database().ref('test/' + userID).once('value').then(function (snapshot) {
              var item = snapshot.val();
              dietFragment.hideLoader();
-             if(item == null)
-             {
-              var dietFromdb   = 9999;
+             console.log(item);
+             var dietFromdb = null;
+             if(item != null)  {
+                 dietFromdb = item.dietIds;
              }
-             else {
-                 var dietFromdb = item.dietIds;
-             }
-             if (dietFromdb == "1") {
+             if(item && item.myDiet){
+                 document.getElementById('mssDiv1').style.display = "none";
+                 document.getElementById('mssDiv2').style.display = "none";
+                 document.getElementById('mssDiv3').style.display = "none";
+                 document.getElementById('mssDiv4').style.display = "none";
+                 document.getElementById('mssDiv5').style.display = "none";
+                 document.getElementById('mssImg').style.display = "none";
+                 document.getElementById('removeSection').style.display = "block";
+                 document.getElementById('emptyDietListMsg').innerText = "";
+                 document.getElementById('obrazek').src = "";
+                 document.getElementById('show_plan').style.display = "block";
+             }else if (dietFromdb == "1") {
                  document.getElementById('mssDiv1').style.display = "block";
                  document.getElementById('mssDiv2').style.display = "none";
                  document.getElementById('mssDiv3').style.display = "none";
@@ -59,6 +70,8 @@ var dietFragment = {
                  document.getElementById('mssDiv5').style.display = "none";
                  document.getElementById('mssImg').style.display = "none";
                  document.getElementById('removeSection').style.display = "block";
+                 document.getElementById('emptyDietListMsg').innerText = "";
+                 document.getElementById('obrazek').src = "";
              }
              else if(dietFromdb == "2") {
                  document.getElementById('mssDiv2').style.display = "block";
@@ -68,6 +81,8 @@ var dietFragment = {
                  document.getElementById('mssDiv5').style.display = "none";
                  document.getElementById('mssImg').style.display = "none";
                  document.getElementById('removeSection').style.display = "block";
+                 document.getElementById('emptyDietListMsg').innerText = "";
+                 document.getElementById('obrazek').src = "";
              }
              else if(dietFromdb == "3") {
                  document.getElementById('mssDiv3').style.display = "block";
@@ -77,6 +92,8 @@ var dietFragment = {
                  document.getElementById('mssDiv5').style.display = "none";
                  document.getElementById('mssImg').style.display = "none";
                  document.getElementById('removeSection').style.display = "block";
+                 document.getElementById('emptyDietListMsg').innerText = "";
+                 document.getElementById('obrazek').src = "";
 
              }
              else if(dietFromdb == "4") {
@@ -87,6 +104,8 @@ var dietFragment = {
                  document.getElementById('mssDiv5').style.display = "none";
                  document.getElementById('mssImg').style.display = "none";
                  document.getElementById('removeSection').style.display = "block";
+                 document.getElementById('emptyDietListMsg').innerText = "";
+                 document.getElementById('obrazek').src = "";
              }
              else if(dietFromdb == "5") {
                  document.getElementById('mssDiv5').style.display = "block";
@@ -96,6 +115,8 @@ var dietFragment = {
                  document.getElementById('mssDiv3').style.display = "none";
                  document.getElementById('mssImg').style.display = "none";
                  document.getElementById('removeSection').style.display = "block";
+                 document.getElementById('emptyDietListMsg').innerText = "";
+                 document.getElementById('obrazek').src = "";
              }
              else {
                  document.getElementById('mssDiv1').style.display = "none";
@@ -126,7 +147,8 @@ var dietFragment = {
     removeDietID : function () {
         var userId = firebase.auth().currentUser.uid;
         firebase.database().ref('test/' + userId).set({
-            dietIds: 0
+            dietIds: 0 ,
+            myDiet : null
         });
 
         document.getElementById('mssDiv1').style.display = "none";
