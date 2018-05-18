@@ -20,6 +20,7 @@
     <allow-navigation href="file://*/*" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <plugin spec=" https://github.com/acianti/cordova-plugin-local-notifications.git" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

@@ -16,6 +16,25 @@
     <script type="text/javascript" src="../../js/plan_details/PlanDetailsController.js"></script>
     <script type="text/javascript" src="../../lib/framework/Initializer.js"></script>
 
+    <style type="text/css">
+        .preloader-background {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eee;
+
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        div.myPad {
+            padding: 25px;
+        }
+    </style>
+
 </head>
 <body class = "container">
 <div class="row">
@@ -23,17 +42,32 @@
         <div class="card-image">
             <img class="responsive-img" id = "img_id">
         </div>
+    <div class="preloader-background">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <ul class="collection">
         <li class="collection-item"><div>Monday<div class="right"><a class="waves-effect waves-light btn-mini" onclick="myFunction('monday_diet')">Hide/Show menu</a></div></div></li>
-        <div id="monday_diet">
-            <h6>Breakfast:</h6> <span id ="monday_breakfast">mondayBreakfast</span><br>
+        <div class="myPad" id="monday_diet">
+            <h6>Breakfast:</h6> <span id ="monday_breakfast">mondayBreakfast</span><br></p>
             <h6>Snack:</h6> <span id="monday_snack1"> mondaySnack1 </span><br>
             <h6>Lunch:</h6> <span id="monday_lunch"> mondayLunch </span><br>
             <h6>Snack:</h6> <span id="monday_snack2"> mondaySnack2 </span><br>
             <h6>Dinner:</h6> <span id="monday_dinner"> mondayDinner </span><br>
         </div>
         <li class="collection-item"><div>Tuesday<div class="right"><a class="waves-effect waves-light btn-mini" onclick="myFunction('tuesday_diet')">Hide/Show menu</a></div></div></li>
-        <div id="tuesday_diet">
+        <div class="myPad" id="tuesday_diet">
             <h6>Breakfast:</h6> <span id="tuesday_breakfast"> tuesdayBreakfast </span><br>
             <h6>Snack:</h6> <span id="tuesday_snack1"> tuesdaySnack1 </span><br>
             <h6>Lunch:</h6> <span id="tuesday_lunch"> tuesdayLunch </span><br>
@@ -41,7 +75,7 @@
             <h6>Dinner:</h6> <span id="tuesday_dinner"> tuesdayDinner </span><br>
         </div>
         <li class="collection-item"><div>Wednesday<div class="right"><a class="waves-effect waves-light btn-mini" onclick="myFunction('wednesday_diet')">Hide/Show menu</a></div></div></li>
-        <div id="wednesday_diet">
+        <div class="myPad" id="wednesday_diet">
             <h6>Breakfast:</h6> <span id="wednesday_breakfast"> wednesdayBreakfast </span><br>
             <h6>Snack:</h6> <span id="wednesday_snack1"> wednesdaySnack1 </span><br>
             <h6>Lunch:</h6> <span id="wednesday_lunch"> wednesdayLunch </span><br>
@@ -49,7 +83,7 @@
             <h6>Dinner:</h6> <span id="wednesday_dinner"> wednesdayDinner </span><br>
         </div>
         <li class="collection-item"><div>Thursday<div class="right"><a class="waves-effect waves-light btn-mini" onclick="myFunction('thursday_diet')">Hide/Show menu</a></div></div></li>
-        <div id="thursday_diet">
+        <div class="myPad" id="thursday_diet">
             <h6>Breakfast:</h6> <span id="thursday_breakfast"> thursdayBreakfast </span><br>
             <h6>Snack:</h6> <span id="thursday_snack1"> thursdaySnack1 </span><br>
             <h6>Lunch:</h6> <span id="thursday_lunch"> thursdayLunch </span><br>
@@ -57,7 +91,7 @@
             <h6>Dinner:</h6> <span id="thursday_dinner"> thursdayDinner </span><br>
         </div>
         <li class="collection-item"><div>Friday<div class="right"><a class="waves-effect waves-light btn-mini" onclick="myFunction('friday_diet')">Hide/Show menu</a></div></div></li>
-        <div id="friday_diet">
+        <div class="myPad" id="friday_diet">
             <h6>Breakfast:</h6> <span id="friday_breakfast"> fridayBreakfast </span><br>
             <h6>Snack:</h6> <span id="friday_snack1"> fridaySnack1 </span><br>
             <h6>Lunch:</h6> <span id="friday_lunch"> fridayLunch </span><br>
@@ -65,7 +99,7 @@
             <h6>Dinner:</h6> <span id="friday_dinner"> fridayDinner </span><br>
         </div>
         <li class="collection-item"><div>Saturday<div class="right"><a class="waves-effect waves-light btn-mini" onclick="myFunction('saturday_diet')">Hide/Show menu</a></div></div></li>
-        <div id="saturday_diet">
+        <div class="myPad" id="saturday_diet">
             <h6>Breakfast:</h6> <span id="saturday_breakfast"> saturdayBreakfast </span><br>
             <h6>Snack:</h6> <span id="saturday_snack1"> saturdaySnack1 </span><br>
             <h6>Lunch:</h6> <span id="saturday_lunch"> saturdayLunch </span><br>
@@ -74,7 +108,7 @@
 
         </div>
         <li class="collection-item"><div>Sunday<div class="right"><a class="waves-effect waves-light btn-mini" onclick="myFunction('sunday_diet')">Hide/Show menu</a></div></div></li>
-        <div id="sunday_diet">
+        <div class="myPad" id="sunday_diet">
             <h6>Breakfast:</h6> <span id="sunday_breakfast"> sundayBreakfast </span><br>
             <h6>Snack:</h6> <span id="sunday_snack1"> sundaySnack1 </span><br>
             <h6>Lunch:</h6> <span id="sunday_lunch"> sundayLunch </span><br>
@@ -84,8 +118,9 @@
     </ul>
 </div>
 <div class="row">
-    <div id="mssDiv"  style="display:none;" class="answer_list" >You already have above nutrition plan assigned to your account</div>
-    <a id="addBtnView" class="waves-effect waves-light btn">Add diet to profile</a>
+    <p class="center-align"> <div id="mssDiv"  style="display:none;" class="answer_list" >You already have above nutrition plan assigned to your account</div> </p>
+    <p class="center-align"><a id="addBtnView" class="waves-effect waves-light btn">Add diet to profile</a></p>
+    <p class="center-align"><a class="waves-effect waves-light btn" id="back_to_plans">Back to main page</a></p>
 </div>
 <script type="text/javascript">
         function myFunction(dayID) {

@@ -38,13 +38,15 @@ var controller = {
     sundaySnack2: null,
     sundayDinner: null,
     addBtn: null,
+    backToPlans: null,
 
     onCreate: function () {
     },
 
     onDeviceReady: function () {
         var idid = localStorage.getItem("diet_offer_ID");
-
+        controller.showLoader();
+        this.backToPlans = $("#back_to_plans");
         this.addBtn = $("#addBtnView");
         this.planID = $("#plan_id");
         this.planName = $("#plan_name");
@@ -85,6 +87,8 @@ var controller = {
         this.sundaySnack2 = $("#sunday_snack2");
         this.sundayDinner = $("#sunday_dinner");
         this.addBtn.click(this.addToProfile.bind(this));
+        this.backToPlans.click(this.backToMainView.bind(this));
+
         if (navigator.userAgent.indexOf('Android') > -1) {
             if (idid == 1)
                 document.getElementById('img_id').src = "file:///android_asset/www/img/glutenFree.jpg";
@@ -118,6 +122,7 @@ var controller = {
             console.log(user.uid);
             firebase.database().ref('diet_offers').once('value').then(function (snapshot) {
                 var item = snapshot.val();
+                controller.hideLoader();
                 controller.planID.html(idid);
                 controller.mondayBreakfast.html(item[idid].menu.mondayMenu.breakfast);
                 controller.mondaySnack1.html(item[idid].menu.mondayMenu.snack1);
@@ -171,8 +176,13 @@ var controller = {
 
         firebase.database().ref('test/' + userId).once('value').then(function (snapshot) {
             var item = snapshot.val();
-            var dietFromdb = item.dietId;
-            console.log(dietFromdb);
+            if(item == null)
+            {
+                var dietFromdb = 9999;
+            }
+            else {
+                var dietFromdb = item.dietIds;
+            }
             if (dietFromdb == dietID) {
                 document.getElementById('mssDiv').style.display = "block";
             }
@@ -182,5 +192,17 @@ var controller = {
                 });
             }
         });
+    },
+
+    backToMainView: function(){
+        navigation.navigateToPath("/view/main/main.html");
+    },
+
+    showLoader: function () {
+        $('.preloader-background').fadeIn();
+    },
+
+    hideLoader: function () {
+        $('.preloader-background').fadeOut('slow');
     }
 };

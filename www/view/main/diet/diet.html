@@ -3,7 +3,7 @@
         #choose_existingbtn{
             width: 250px;
         }
-        #create_your_ownbtn{
+        #create_your_ownbtn, #show_plan{
             width: 250px;
         }
         #obrazek{
@@ -11,12 +11,78 @@
             height: auto;
         }
         div.myDiv3 { position: fixed; bottom : 5%; width : 100%}
+
+        .preloader-background {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #eee;
+
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
     </style>
 </head>
 <div class="container">
     <h6 class="center-align"><b>My Nutrition Plan</b></h6>
+
+<div class="preloader-background">
+    <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+                <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mssImg"  style="display:none;" class="answer_list" >
     <p class="center-align"><img id="obrazek" alt="" class="responsive-img"></p>
-    <h6 class="center-align">You haven't added any nutrition plan yet. In order to add a plan, please:</h6>
+</div>
+    <div class="row">
+        <div id="mssDiv1"  style="display:none;" class="answer_list" ><p class="center-align">
+            Currently you have added to your profile: Gluten Free Diet</p>
+        <div class="card-panel">
+            <p class="center-align"><span class="blue-text text-darken-2">Click here to view nutrition plan</span></p></div>
+    </div></p>
+        <div id="mssDiv2"  style="display:none;" class="answer_list" ><p class="center-align">
+            Currently you have added to your profile: Fit diet</p>
+        <div class="card-panel">
+            <p class="center-align"><span class="blue-text text-darken-2">Click here to view nutrition plan</span></p></div>
+    </div></p>
+        <div id="mssDiv3"  style="display:none;" class="answer_list" ><p class="center-align">
+            Currently you have added to your profile: Muscle building diet</p>
+        <div class="card-panel">
+            <p class="center-align"><span class="blue-text text-darken-2">Click here to view nutrition plan</span></p></div>
+    </div>
+        <div id="mssDiv4"  style="display:none;" class="answer_list" ><p class="center-align">
+        Currently you have added to your profile: Vegan diet</p>
+        <div class="card-panel">
+            <p class="center-align"><span class="blue-text text-darken-2">Click here to view nutrition plan</span></p></div>
+        </div>
+        <div id="mssDiv5"  style="display:none;" class="answer_list" ><p class="center-align">
+        Currently you have added to your profile: Vegetarian</p>
+        <div class="card-panel">
+            <p class="center-align"><span class="blue-text text-darken-2">Click here to view nutrition plan</span></p></div>
+            </div>
+    </div>
+    <h6 class="center-align" id = emptyDietListMsg></h6>
+<div id="removeSection"  style="display:none;" class="answer_list" >
+    <p class="center-align">If you want to remove above nutrition plan from your profile, please click "remove" button</p>
+    <p class="center-align"><a class="waves-effect waves-light btn" id="removeButton">Remove</a></p>
+</div>
     <p class="center-align"><a class="waves-effect waves-light btn" id="choose_existingbtn" href="#test-swipe-1">Choose existing one</a></p>
     <p class="center-align"><a class="waves-effect waves-light btn" id="create_your_ownbtn">Create your own plan</a></p>
+    <p class="center-align"><a class="waves-effect waves-light btn" id="show_plan">Show your existing plan</a></p>
 </div>

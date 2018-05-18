@@ -33,7 +33,8 @@ var dashboardFragment = {
         this.dietName5 = $("#diet_name5"),
         this.dietDescription3 = $("#diet_description3"),
         this.dietDescription4 = $("#diet_description4"),
-        this.dietDescription5 = $("#diet_description5")
+        this.dietDescription5 = $("#diet_description5"),
+        dashboardFragment.showLoader();
         if (navigator.userAgent.indexOf('Android') > -1)
         {
             document.getElementById('diet_link1').src = "file:///android_asset/www/img/glutenFree.jpg";
@@ -61,6 +62,7 @@ var dashboardFragment = {
             console.log(user.uid);
             firebase.database().ref('diet_offers').once('value').then(function(snapshot) {
                 var item = snapshot.val();
+                dashboardFragment.hideLoader();
                 profileFragment.test_label.html(snapshot.val());
                 dashboardFragment.dietName2.html(item["2"].dietName);
                 dashboardFragment.dietDescription2.html(item["2"].dietDescription);
@@ -106,6 +108,13 @@ var dashboardFragment = {
         localStorage.removeItem("diet_offer_ID");
         localStorage.setItem("diet_offer_ID", "5");
         navigation.navigateToPath("/view/plan_details/plan_details.html");
+    },
+    showLoader: function () {
+        $('.preloader-background').fadeIn();
+    },
+
+    hideLoader: function () {
+        $('.preloader-background').fadeOut('slow');
     }
 
 };
